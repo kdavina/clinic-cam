@@ -10,12 +10,17 @@ def take_picture():
     global last_video_pic
     global started_video
     global recent_ended_video
+    print("started_video:", started_video)
+    print("recent_ended_video:", recent_ended_video)
     if not started_video:
         if recent_ended_video:
+            print("Entered if 1")
             recent_ended_video = False
         else:
+            print("Entered else 1")
             last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
             cam.capture(last_video_pic)
+            print("picture captured")
 
 
 def stop_program():
