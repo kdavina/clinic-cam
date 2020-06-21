@@ -5,10 +5,16 @@ import os
 
 # This is the magic of git!
 
+
 def take_picture():
     global last_video_pic
-    last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
-    cam.capture(".jpg")
+    global started_video
+    global recent_ended_video
+    if not started_video and not recent_ended_video:
+        last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
+        cam.capture(last_video_pic + ".jpg")
+        recent_ended_video = False
+
 
 def stop_program():
     cam.stop_preview()
@@ -16,6 +22,7 @@ def stop_program():
     continue_program = False
     bd.stop()
     print("continue_program", continue_program)
+
 
 def record_video():
     global started_video
@@ -34,6 +41,7 @@ cam = PiCamera()
 cam.start_preview()
 started_video = False
 last_video_pic = ''
+recent_ended_video = False
 bd.when_double_pressed = record_video
 bd.set_when_pressed(take_picture, background=True)
 bd.when_swiped = stop_program
