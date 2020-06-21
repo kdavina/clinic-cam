@@ -30,7 +30,8 @@ def record_video():
     global started_video
     global last_video_pic
     global recent_ended_video
-    os.remove(last_video_pic)
+    if os.path.isfile(last_video_pic):
+        os.remove(last_video_pic)
     if started_video:
         cam.stop_recording()
         started_video = False
