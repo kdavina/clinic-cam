@@ -27,13 +27,15 @@ def stop_program():
 def record_video():
     global started_video
     global last_video_pic
+    global recent_ended_video
     os.remove(last_video_pic)
     if started_video:
         cam.stop_recording()
         started_video = False
+        recent_ended_video = True
         print("stopped video. started_video=", started_video)
     else:
-        cam.start_recording('name_of_your_video.h264')
+        cam.start_recording('/home/pi/Videos/video_' + time.strftime("%Y-%m-%d_%H-%M-%S") + '.h264')
         print("started video. started_video=", started_video)
 
 bd = BlueDot()
