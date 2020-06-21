@@ -3,6 +3,8 @@ from picamera import PiCamera
 import time
 import os
 
+# This is the magic of git!
+
 def take_picture():
     global last_video_pic
     last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
@@ -18,14 +20,13 @@ def stop_program():
 def record_video():
     global started_video
     global last_video_pic
+    os.remove(last_video_pic)
     if started_video:
         cam.stop_recording()
         started_video = False
-        os.remove(last_video_pic)
         print("stopped video. started_video=", started_video)
     else:
         cam.start_recording('name_of_your_video.h264')
-        last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
         print("started video. started_video=", started_video)
 
 bd = BlueDot()
