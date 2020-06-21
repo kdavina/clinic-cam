@@ -10,10 +10,12 @@ def take_picture():
     global last_video_pic
     global started_video
     global recent_ended_video
-    if not started_video and not recent_ended_video:
-        last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
-        cam.capture(last_video_pic)
-        recent_ended_video = False
+    if not started_video:
+        if recent_ended_video:
+            recent_ended_video = False
+        else:
+            last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
+            cam.capture(last_video_pic)
 
 
 def stop_program():
@@ -36,7 +38,9 @@ def record_video():
         print("stopped video. started_video=", started_video)
     else:
         cam.start_recording('/home/pi/Videos/video_' + time.strftime("%Y-%m-%d_%H-%M-%S") + '.h264')
+        started_video = True
         print("started video. started_video=", started_video)
+
 
 bd = BlueDot()
 cam = PiCamera()
