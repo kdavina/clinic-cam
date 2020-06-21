@@ -18,7 +18,7 @@ def take_picture():
             recent_ended_video = False
         else:
             print("Entered else 1")
-            last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
+            last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d_%H-%M-%S') + '.jpg'
             cam.capture(last_video_pic)
             print("picture captured")
 
