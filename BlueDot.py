@@ -12,7 +12,7 @@ def take_picture():
     global recent_ended_video
     if not started_video and not recent_ended_video:
         last_video_pic = '/home/pi/Pictures/image_' + time.strftime('%Y-%m-%d....') + '.jpg'
-        cam.capture(last_video_pic + ".jpg")
+        cam.capture(last_video_pic)
         recent_ended_video = False
 
 
