@@ -23,12 +23,15 @@ def take_picture():
             print("picture captured")
 
 
-def stop_program():
-    cam.stop_preview()
+def stop_program(swipe):
     global continue_program
-    continue_program = False
-    bd.stop()
-    print("continue_program", continue_program)
+    if swipe.distance >= 2:
+        cam.stop_preview()
+        continue_program = False
+        bd.stop()
+    else:
+        continue_program = True
+        print("continue_program", continue_program)
 
 
 def record_video():
