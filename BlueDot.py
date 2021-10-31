@@ -1,10 +1,11 @@
 from bluedot import BlueDot
 from picamera import PiCamera
+from signal import pause
 import time
 import os
 
-# This is the magic of git!
-
+def pressed(pos):
+    print("button {}.{} pressed".format(pos.col, pos.row))
 
 def take_picture():
     global last_video_pic
@@ -22,7 +23,6 @@ def take_picture():
             cam.capture(last_video_pic)
             print("picture captured")
 
-
 def stop_program(swipe):
     global continue_program
     if swipe.distance >= 2:
@@ -32,7 +32,6 @@ def stop_program(swipe):
     else:
         continue_program = True
         print("continue_program", continue_program)
-
 
 def record_video():
     global started_video
@@ -46,19 +45,19 @@ def record_video():
         recent_ended_video = True
         print("stopped video. started_video=", started_video)
     else:
-        cam.start_recording('/home/pi/Videos/video_' + time.strftime("%Y-%m-%d_%H-%M-%S") + '.h264')
+        cam.start_recording('/home/pi/Videos/video_' + time.strftime("%Y-%m-%d_%H-%M-%S") + '.mp4')
         started_video = True
         print("started video. started_video=", started_video)
 
 
-bd = BlueDot()
+bd = BlueDot(cols=1, rows=2)
 cam = PiCamera()
 cam.start_preview()
 started_video = False
 last_video_pic = ''
 recent_ended_video = False
-bd.when_double_pressed = record_video
-bd.set_when_pressed(take_picture, background=True)
+bd[0,1].set_when_pressed = record_video
+bd[0,0].set_when_pressed(take_picture, background=True)
 bd.when_swiped = stop_program
 
 
