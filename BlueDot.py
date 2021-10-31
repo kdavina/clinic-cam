@@ -56,7 +56,7 @@ cam.start_preview()
 started_video = False
 last_video_pic = ''
 recent_ended_video = False
-bd[0,1].set_when_pressed = record_video
+bd[0,1].when_pressed = record_video
 bd[0,0].set_when_pressed(take_picture, background=True)
 bd.when_swiped = stop_program
 
